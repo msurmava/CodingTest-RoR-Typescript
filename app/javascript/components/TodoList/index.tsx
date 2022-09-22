@@ -13,6 +13,8 @@ type Props = {
   todoItems: TodoItem[];
 };
 
+
+
 const TodoList: React.FC<Props> = ({ todoItems }) => {
   useEffect(() => {
     const token = document.querySelector(
@@ -24,16 +26,21 @@ const TodoList: React.FC<Props> = ({ todoItems }) => {
   const checkBoxOnCheck = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoItemId: number
-  ): void => {
+    ): void => {
+      e.preventDefault();
     axios.post("/todo", {
       id: todoItemId,
       checked: e.target.checked,
-    });
+    }).then(() =>  location.reload())
+   
   };
+
 
   const resetButtonOnClick = (): void => {
     axios.post("/reset").then(() => location.reload());
   };
+
+
 
   return (
     <Container>
