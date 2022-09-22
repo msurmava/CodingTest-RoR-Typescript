@@ -7,6 +7,7 @@ type TodoItem = {
   id: number;
   title: string;
   checked: boolean;
+  priority: Number;
 };
 
 type Props = {
@@ -50,7 +51,7 @@ const TodoList: React.FC<Props> = ({ todoItems }) => {
           <ListGroup.Item key={todo.id}>
             <Form.Check
               type="checkbox"
-              label={todo.title}
+              label={[todo.title, todo.priority]}
               checked={todo.checked}
               onChange={(e) => checkBoxOnCheck(e, todo.id)}
             />

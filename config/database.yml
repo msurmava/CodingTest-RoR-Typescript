@@ -1,20 +1,19 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: 127.0.0.1
-  port: 5432
-
+ adapter: postgresql
+ pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+ timeout: 5000
+ 
 development:
-  <<: *default
-  database: template_development
-
+ <<: *default
+ database: p_development
+ 
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: template_test
-
+ <<: *default
+ database: p_test
+ 
 production:
-  <<: *default
-  database: template_production
-  username: template_username
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+ <<: *default
+ database: p_production
