@@ -7,7 +7,7 @@ type TodoItem = {
   id: number;
   title: string;
   checked: boolean;
-  priority: Number;
+  priority: string;
 };
 
 type Props = {
@@ -16,7 +16,20 @@ type Props = {
 
 
 
+
+
 const TodoList: React.FC<Props> = ({ todoItems }) => {
+
+  const priorityColor = (value: any): {backgroundColor: string} => {
+
+    switch (value) {
+      case "low": return {backgroundColor:  "#FDF9BB"}
+      case "high": return { backgroundColor: "#FDBBBB"}
+      default: return {backgroundColor: "#E1F5C8"}
+    }
+
+  }
+
   useEffect(() => {
     const token = document.querySelector(
       "[name=csrf-token]"
@@ -27,13 +40,13 @@ const TodoList: React.FC<Props> = ({ todoItems }) => {
   const checkBoxOnCheck = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoItemId: number
-    ): void => {
-      e.preventDefault();
+  ): void => {
+    e.preventDefault();
     axios.post("/todo", {
       id: todoItemId,
       checked: e.target.checked,
-    }).then(() =>  location.reload())
-   
+    }).then(() => location.reload())
+
   };
 
 
@@ -48,10 +61,13 @@ const TodoList: React.FC<Props> = ({ todoItems }) => {
       <h3>2022 Wish List</h3>
       <ListGroup>
         {todoItems.map((todo) => (
-          <ListGroup.Item key={todo.id}>
+          <ListGroup.Item key={todo.id}  
+           style={priorityColor(todo.priority)}
+          className="item-group"
+          >
             <Form.Check
               type="checkbox"
-              label={[todo.title, todo.priority]}
+              label={todo.title}
               checked={todo.checked}
               onChange={(e) => checkBoxOnCheck(e, todo.id)}
             />

@@ -1,2 +1,5 @@
 <h1>Todo list</h1>
 <%= react_component("TodoList", { todoItems: @todos }) %>
+<div style='text-align: center;'>
+  <%= link_to "get pdf", pdf_path, target: :_blank,  class:"button"%>
+<div>

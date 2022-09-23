@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   post "todo", to: "home#edit_todo_item"
   post "reset", to: "home#reset_todo_items"
   post "todos", to: "home#create_todo_item"
+  get '/pdf', to: 'home#pdf'
 end
