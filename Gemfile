@@ -41,3 +41,4 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "prawn", "~> 2.4"
 gem 'prawn-styled-text' 
+gem 'will_paginate', '~> 3.3'

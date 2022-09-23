@@ -6,13 +6,22 @@ class HomeController < ApplicationController
   skip_before_action :verify_authenticity_token, :only => [:create_todo_item]
 
   def landing
-    @todos = Todo.all.order(:id)
+    @todos = Todo.all.order(:id).paginate(page: params[:page], per_page: 5)
   end
 
   def create_todo_item
     @todo_item = Todo.new(todo_item_params)
     if @todo_item.save
-      render json: {message: "#{@todo} created"}
+      render json: {message: "#{@todo_item.title} created"}
+    else
+      render json: {errors: @todo_item.errors}, status: :unprocessable_entity
+    end
+  end
+
+  def create_todo_item
+    @todo_item = Todo.new(todo_item_params)
+    if @todo_item.save
+      render json: {message: "#{@todo_item.title} created"}
     else
       render json: {errors: @todo_item.errors}, status: :unprocessable_entity
     end
@@ -55,7 +64,7 @@ class HomeController < ApplicationController
   private
 
   def todo_item_params
-    params.permit(:id, :title, :checked)
+    params.permit(:id, :title, :checked, :priority)
   end
 
   def set_todo_item

@@ -1,5 +1,9 @@
-<h1>Todo list</h1>
-<%= react_component("TodoList", { todoItems: @todos }) %>
+<div style= "text-align: center">
+  <h1 >Todo list</h1>
+  <div class="digg_pagination center">
+    <%= will_paginate @todos%>
+  </div>
+</div><%= react_component("TodoList", { todoItems: @todos }) %>
 <div style='text-align: center;'>
   <%= link_to "get pdf", pdf_path, target: :_blank,  class:"button"%>
 <div>
