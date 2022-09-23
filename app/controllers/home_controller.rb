@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   skip_before_action :verify_authenticity_token, :only => [:create_todo_item]
 
   def landing
-    @todos = Todo.all.order("priority DESC" )
+    @todos = Todo.all.order(:id)
   end
 
   def create_todo_item
@@ -27,7 +27,7 @@ class HomeController < ApplicationController
   end
 
   def pdf
-    @todos = Todo.all.order("priority DESC" )
+    @todos = Todo.all.order(:id)
     pdf = Prawn::Document.new
   
     pdf.styled_text "<h1 style='text-align: center; font-size: 20px'>YOUR TODO LIST</h1>"
